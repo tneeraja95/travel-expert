@@ -44,7 +44,7 @@ const Wishlist: React.FC = () => {
   };
   return (
     <div className="align-center flex  flex-col">
-      <h2 className="font-sans font-semibold text-[44px] m-7 text-center">
+      <h2 className="font-sans font-semibold text-[44px] text-center pb-11">
         Join the waitlist for early access
       </h2>
       <form
