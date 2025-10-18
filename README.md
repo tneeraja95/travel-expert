@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 Travel Experts — Landing Page
 
-## Getting Started
+A **Next.js + TypeScript + Tailwind CSS** landing page for **Travel Experts**, your one-stop destination for all things travel.  
+It showcases a smooth, modern design with an interactive carousel and a wishlist integration powered by Google Sheets.
 
-First, run the development server:
+---
+
+## 🚀 Live Demo
+
+🔗 **[View Deployment on Vercel](https://travel-expert-phi.vercel.app/)**
+
+---
+
+## 🧱 Tech Stack
+
+- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel
+- **Integration:** Google Sheets API
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/travel-experts.git
+cd travel-experts
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Copy the example environment file and update it with your Google Sheets credentials.
+(An example .env.example file is included for reference.)
+
+### 4. Run the Project Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Your app will start at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧩 Components Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Introduction
 
-## Learn More
+Contains the **Navbar** and **Main Title** that introduce the Travel Experts brand.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Wishlist
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+A section where users can join the wishlist by submitting:
 
-## Deploy on Vercel
+- **Name** and **Email** (mandatory fields with email validation).
+- On clicking **“Join Wishlist”**, user details (name, email, timestamp) are saved to a **[Google Sheet](https://docs.google.com/spreadsheets/d/1OqjNw5BMLww6LDjr9NZNSNjuneQgOQ9fR_5W5iWG-rU/edit?gid=0#gid=0)**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Hero Section
+
+A dual-carousel section featuring:
+
+#### Outer Carousel
+
+- Contains **4 slides** with **auto-play** and **dot navigation**.
+- Includes an **“Explore Now”** button (currently links to [getmarch.com](https://getmarch.com)).
+
+#### Inner Carousel
+
+- Displays **related images**.
+- **Auto-plays** in sync with the outer carousel for a seamless visual experience.
+
+---
+
+### 4. Footer
+
+A simple **footer section** that appears across all pages, containing **Social media links**
+
+---

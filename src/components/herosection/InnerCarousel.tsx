@@ -18,7 +18,7 @@ const images = [
 export default function InnerCarousel() {
   const autoplay = useRef(
     Autoplay({
-      delay: 3000,
+      delay: 2500,
       stopOnInteraction: false,
       stopOnLastSnap: true,
     })
@@ -39,7 +39,6 @@ export default function InnerCarousel() {
       slides.forEach((slide, i) => {
         slide.classList.toggle("is-selected", i === selectedIndex);
       });
-      emblaApi.scrollTo(selectedIndex, false);
       if (selectedIndex >= 3) {
         autoplay.current?.stop();
       }
@@ -59,12 +58,14 @@ export default function InnerCarousel() {
 
   return (
     <div className="relative h-[450px] overflow-hidden hidden xl:block">
-      <div className="" ref={emblaRef}>
-        <div className="flex gap-4 items-end h-[450px]">
+      {/* Viewport (emblaRef goes here) */}
+      <div ref={emblaRef} className="embla__viewport">
+        {/* Track */}
+        <div className="embla__container flex justify-start items-end gap-4 h-[450px]">
           {images.map((src, i) => (
             <div
               key={src}
-              className="embla__slide relative h-[346px] w-[292px] px-2 flex-[0_0_auto] rounded-4xl overflow-hidden"
+              className="embla__slide relative rounded-4xl overflow-hidden flex-[0_0_auto]"
             >
               <div className="card">
                 <Image

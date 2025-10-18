@@ -4,28 +4,38 @@
   --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
 
+.embla__container {
+  direction: ltr; /* hard-guard against RTL */
+}
+
 .embla__slide {
   --w: 292px;
   --h: 346px;
 
-  flex: 0 0 var(--w); /* <-- layout width */
+  box-sizing: border-box;
+  width: var(--w); /* drives layout; grows to the right */
   height: var(--h);
-  width: var(--w);
   transition:
-    width 1.5s ease,
-    height 1000ms cubic-bezier(0.2, 0.7, 0.2, 1);
-  transform-origin: bottom center; /* 👈 ensures growth anchors from bottom */
+    width 500ms ease,
+    height 500ms ease;
+
+  /* bottom anchor for height growth */
   align-self: flex-end;
   border-radius: 24px;
-  overflow: hidden; /* clip image nicely */
-  will-change: flex-basis, height;
+  overflow: hidden;
 }
 
-/* Selected slide grows = neighbors move */
 .embla__slide.is-selected {
-  --w: 380px; /* wider → reflow pushes neighbors */
-  --h: 450px; /* taller if you like a "lift" effect */
-  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.25);
+  --w: 380px; /* expands RIGHTWARD (left edge fixed) */
+  --h: 450px;
+
   border-radius: 32px;
   border: 6px solid #fff;
+}
+
+.embla__viewport {
+  direction: ltr;
+}
+.embla__container {
+  justify-content: flex-start;
 }
