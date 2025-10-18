@@ -2,6 +2,7 @@
 
 A **Next.js + TypeScript + Tailwind CSS** landing page for **Travel Experts**, your one-stop destination for all things travel.  
 It showcases a smooth, modern design with an interactive carousel and a wishlist integration powered by Google Sheets.
+This page is responsive and works for desktop, tablets and laptops. This is not optimised for smaller screens.
 
 ---
 

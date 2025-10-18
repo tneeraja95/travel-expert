@@ -49,37 +49,39 @@ const Wishlist: React.FC = () => {
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-row align-center justify-center gap-10"
+        className="flex flex-col items-center justify-center gap-2 px-5 lg:flex-row gap-6"
       >
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={form.name}
-          onChange={handleChange}
-          required
-          autoComplete="name"
-          placeholder="Your name"
-          className="block w-78 rounded-lg border px-2 py-3 text-lg"
-        />
+        <div className="flex flex-col gap-6 sm:flex-row">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={form.name}
+            onChange={handleChange}
+            required
+            autoComplete="name"
+            placeholder="Your name"
+            className="block w-78 rounded-lg border px-2 py-3 text-lg"
+          />
 
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          required
-          autoComplete="email"
-          placeholder="Your email"
-          className="block w-78 rounded-lg border px-2 py-3 text-lg"
-        />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            autoComplete="email"
+            placeholder="Your email"
+            className="block w-78 rounded-lg border px-2 py-3 text-lg"
+          />
+        </div>
         <button
           type="submit"
           disabled={status === "loading"}
-          className="w-78 rounded-md bg-black text-white py-2 font-medium hover:opacity-80 cursor-pointer transition text-lg"
+          className="text-lg h-[54px] w-78 rounded-md bg-black text-white px-2 py-2 font-medium hover:shadow-[0_4px_10px_0_rgba(0,0,0,0.25)] hover:text-black hover:bg-[rgba(217,217,217,0.42)] cursor-pointer transition"
         >
-          {status === "loading" ? "Submitting…" : "Join the Wishlist"}
+          {status === "loading" ? "Submitting…" : "Join the waitlist"}
         </button>
       </form>
       {(status === "success" || status === "error") && (
@@ -92,7 +94,7 @@ const Wishlist: React.FC = () => {
                   Congratulations!!
                 </h3>
                 <p className="mt-2 text-sm text-gray-600">
-                  You have successfully joined the wishlist. We will notify you
+                  You have successfully joined the waitlist. We will notify you
                   when we launch!!
                 </p>{" "}
               </>
