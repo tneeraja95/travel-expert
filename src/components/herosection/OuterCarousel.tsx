@@ -5,13 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Fade from "embla-carousel-fade";
 import Autoplay from "embla-carousel-autoplay";
-
-const categories = [
-  { title: "Hotels", image: "/images/hotel.jpg" },
-  { title: "Dining", image: "/images/dining.jpg" },
-  { title: "Transport", image: "/images/transport.jpg" },
-  { title: "Experience", image: "/images/experience.jpg" },
-];
+import { categories } from "@/constants";
 
 const OuterCarousel = () => {
   const autoplay = Autoplay({
@@ -27,21 +21,23 @@ const OuterCarousel = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-    const update = () => {
+    const onSelect = () => {
       const selectedIndex = emblaApi.selectedScrollSnap();
       setSelected(selectedIndex);
     };
-    emblaApi.on("select", update);
-    update();
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi]);
 
   return (
     <div className="relative  overflow-hidden ">
       <div className="w-full overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {categories.map(({ title, image }) => (
+          {categories.map(({ title, image }, i) => (
             <div
-              key={title}
+              key={i}
               className="aspect-[2/1] w-full max-h-[800px] relative rounded-xl overflow-hidden bg-black flex-[0_0_100%]"
             >
               <Image
@@ -52,12 +48,9 @@ const OuterCarousel = () => {
                 priority
               />
               <div
-                className="absolute  text-white top-1/10 left-1/20
+                className="absolute  text-white top-4/10 left-1/20
               "
               >
-                <div className="font-display font-semibold text-[64px] py-4 ">
-                  {title}
-                </div>
                 <div className="text-2xl mb-10">
                   Travel Experts can help to book <br /> your travel. Ask AI
                   anything and <br /> find your perfect stay.
