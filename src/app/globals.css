@@ -4,38 +4,16 @@
   --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
 
-.embla__container {
-  direction: ltr; /* hard-guard against RTL */
-}
-
 .embla__slide {
-  --w: 292px;
   --h: 346px;
-
-  box-sizing: border-box;
-  width: var(--w); /* drives layout; grows to the right */
+  width: 292px;
   height: var(--h);
   transition:
     width 500ms ease,
     height 500ms ease;
-
-  /* bottom anchor for height growth */
-  align-self: flex-end;
-  border-radius: 24px;
-  overflow: hidden;
 }
 
 .embla__slide.is-selected {
-  --w: 380px; /* expands RIGHTWARD (left edge fixed) */
   --h: 450px;
-
-  border-radius: 32px;
   border: 6px solid #fff;
-}
-
-.embla__viewport {
-  direction: ltr;
-}
-.embla__container {
-  justify-content: flex-start;
 }

@@ -1,81 +1,79 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import Autoplay from "embla-carousel-autoplay";
-
-const images = [
-  "/images/inner1.jpg",
-  "/images/inner2.jpg",
-  "/images/inner3.jpg",
-  "/images/inner4.jpg",
-  "/images/inner5.jpg",
-  "/images/inner6.jpg",
-  "/images/inner7.jpg",
-];
+import { images } from "@/constants";
 
 export default function InnerCarousel() {
-  const autoplay = useRef(
-    Autoplay({
-      delay: 2500,
-      stopOnInteraction: false,
-      stopOnLastSnap: true,
-    })
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+  });
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: false, align: "start" },
-    [autoplay.current]
-  );
+  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
-    const onUpdate = () => {
-      const selectedIndex = emblaApi.selectedScrollSnap();
-      const slides = emblaApi.slideNodes() ?? [];
-      if (!slides.length) return;
 
+    const updateSelected = () => {
+      const selectedIndex = emblaApi.selectedScrollSnap();
+      const slides = emblaApi.slideNodes();
       slides.forEach((slide, i) => {
         slide.classList.toggle("is-selected", i === selectedIndex);
       });
-      if (selectedIndex >= 3) {
-        autoplay.current?.stop();
+    };
+
+    const startAutoplay = () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+
+      autoplayRef.current = setInterval(() => {
+        const index = emblaApi.selectedScrollSnap();
+
+        if (index >= 3 || !emblaApi.canScrollNext()) {
+          stopAutoplay();
+          return;
+        }
+
+        emblaApi.scrollNext();
+      }, 3000);
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
       }
     };
-    emblaApi.on("select", onUpdate);
-    emblaApi.on("reInit", () => {
-      onUpdate();
-    });
 
-    onUpdate();
+    emblaApi.on("select", updateSelected);
+
+    startAutoplay();
 
     return () => {
-      emblaApi.off("select", onUpdate);
-      emblaApi.off("reInit", onUpdate);
+      stopAutoplay();
+      emblaApi.off("select", updateSelected);
     };
   }, [emblaApi]);
 
   return (
     <div className="relative h-[450px] overflow-hidden hidden xl:block">
-      {/* Viewport (emblaRef goes here) */}
       <div ref={emblaRef} className="embla__viewport">
-        {/* Track */}
         <div className="embla__container flex justify-start items-end gap-4 h-[450px]">
           {images.map((src, i) => (
             <div
               key={src}
-              className="embla__slide relative rounded-4xl overflow-hidden flex-[0_0_auto]"
+              className={`embla__slide relative rounded-4xl overflow-hidden flex-[0_0_auto] transition-all duration-500 ${
+                i === 0 ? "is-selected no-transition" : ""
+              }`}
             >
-              <div className="card">
-                <Image
-                  src={src}
-                  alt={`Slide ${i + 1}`}
-                  className="object-cover"
-                  fill
-                  sizes="(max-width: 400px) 100vw, 292px"
-                />
-              </div>
+              <Image
+                src={src}
+                alt={`Slide ${i + 1}`}
+                className="object-cover"
+                fill
+                sizes="(max-width: 400px) 100vw, 292px"
+              />
             </div>
           ))}
         </div>
